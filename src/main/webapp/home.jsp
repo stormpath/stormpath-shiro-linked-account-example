@@ -18,8 +18,11 @@
     //These next constants below would ordinarily be defined in your application's configuration somewhere.  The URLs
     //for your Groups are unique to your Stormpath tenant/application.
 %>
-<c:set var="GOOD_GUYS" value="https://api.stormpath.com/v1/groups/upXiVIrPQ7yfA5L1G5ZaSQ" scope="application"/>
-<c:set var="BAD_GUYS" value="https://api.stormpath.com/v1/groups/01L6Fj7ATwKg8XrcpF1Lww" scope="application"/>
+<c:set var="ADMIN" value="admin" scope="application"/>
+<c:set var="GOOD_GUYS" value="good_guys" scope="application"/>
+<c:set var="BAD_GUYS" value="bad_guys" scope="application"/>
+
+<!-- if you want to use the group HREF, set 'groupRoleResolver.modeNames = HREF' in shiro.ini -->
 <c:set var="SCHWARTZ_MASTERS" value="https://api.stormpath.com/v1/groups/hyXDGl2oT1GDL8b_B7WG3A" scope="application"/>
 <c:set var="subject" value=""/>
 
@@ -61,6 +64,7 @@
 <h3>Roles you have</h3>
 
 <p>
+    <shiro:hasRole name="${ADMIN}">admin<br/></shiro:hasRole>
     <shiro:hasRole name="${GOOD_GUYS}">Good Guys<br/></shiro:hasRole>
     <shiro:hasRole name="${BAD_GUYS}">Bad Guys<br/></shiro:hasRole>
     <shiro:hasRole name="${SCHWARTZ_MASTERS}">Schwartz Masters<br/></shiro:hasRole>
@@ -69,6 +73,7 @@
 <h3>Roles you DON'T have</h3>
 
 <p>
+    <shiro:lacksRole name="${ADMIN}">admin<br/></shiro:lacksRole>
     <shiro:lacksRole name="${GOOD_GUYS}">Good Guys<br/></shiro:lacksRole>
     <shiro:lacksRole name="${BAD_GUYS}">Bad Guys<br/></shiro:lacksRole>
     <shiro:lacksRole name="${SCHWARTZ_MASTERS}">Schwartz Masters<br/></shiro:lacksRole>

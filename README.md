@@ -21,6 +21,27 @@ Below are some resources you might find useful!
 - [Stormpath Java Product Guide](https://docs.stormpath.com/java/product-guide/)
 - [Stormpath Java SDK](https://github.com/stormpath/stormpath-sdk-java)
 
+
+## Stormpath Tenant Configuration
+
+This example assumes you have the following setup:
+1. Application
+1. Source Directory (Social, Active Directory, etc)
+1. Target Directory (Stormpath Cloud Directory), referred `cloud directory` in this example.
+1. Group named `admin`, `good_guys`, and `bad_guys` defined in the `cloud directory`.
+1. Accounts defined in the Source Directory, this doc will assume account Joe Coder (`jcoder`) will be created.
+
+
+## Application Configuration
+
+Edit the following properties in `src/main/webapp/WEB-INF/shiro.ini`:
+
+| property | description | example value |
+|----------|-------------|---------------|
+| stormpathClient.apiKeyFileLocation | Location of api secrets file | /home/jcoder/.stormpath/apiKey.properties |
+| stormpathRealm.applicationRestUrl | Applicaton HREF | https://enterprise.stormpath.io/v1/applications/<app-id> |
+| stormpathRealm.cloudDirHref | HREF of a cloud directory | https://enterprise.stormpath.io/v1/directories/<dir-id> |
+
 ## Contributing
 
 Contributions, bug reports and issues are very welcome. Stormpath regularly maintains this repository, and are quick to review pull requests and accept changes!
@@ -42,9 +63,21 @@ Run it:
 
 `mvn jetty:run`
 
+Open a browser to: http://localhost:8080/
+Log in as `jcoder`, after a successful login, this user should have NO roles associated.
+
+Back in the Stormpath Admin Console you will see a new Account created in the `cloud directory`.
+Add this user to the `admin` group.
+
+Browse back to: http://localhost:8080/
+If you do NOT see the new `admin` role, log out and log back in.
+
+
+**NOTE:** This example does NOT keep the account synchronized, meaning if Joe Coder changes his name to Joseph Coder.  The user's name will still appear as 'Joe Coder' to this application.
+
 
 ## Copyright ##
 
-Copyright &copy; 2013-2015 Stormpath, Inc. and contributors.
+Copyright &copy; 2013-2016 Stormpath, Inc. and contributors.
 
 This project is open-source via the [Apache 2.0 License](http://www.apache.org/licenses/LICENSE-2.0).

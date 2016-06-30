@@ -22,11 +22,11 @@
     <parent>
         <groupId>org.apache.shiro.samples</groupId>
         <artifactId>shiro-samples</artifactId>
-        <version>1.2.3</version>
+        <version>1.2.5</version>
     </parent>
 
     <groupId>com.stormpath.samples</groupId>
-    <artifactId>shiro-web-sample</artifactId>
+    <artifactId>shiro-linked-account-sample</artifactId>
     <version>1.0.0-SNAPSHOT</version>
     <name>Stormpath :: Shiro :: Web Sample</name>
     <packaging>war</packaging>
