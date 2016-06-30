@@ -1,10 +1,12 @@
 [![Build Status](https://travis-ci.org/stormpath/stormpath-shiro-web-sample.png?branch=master)](https://travis-ci.org/stormpath/stormpath-shiro-web-sample)
 
-# Stormpath Shiro Web Sample
+# Stormpath Shiro Account Linking Example
 
-Fork of the Apache Shiro Web sample application that uses Stormpath for User Management. This sample application uses the [Apache Shiro plugin for Stormpath](https://github.com/stormpath/stormpath-shiro) to demonstrate how to integrate Apache Shiro and Stormpath.
+This project is a fork of [stormpath/stormpath-shiro-web-sample](https://github.com/stormpath/stormpath-shiro-web-sample) which provides an example in which an source account from a read-only Stormpath directory (Active Directory mirror, a social directory, etc) is copied to a Stormpath directory, were groups can be applied. **NOTE: Passwords are NOT copied**, The original source directory is used for authentication.
 
-Stormpath is a User Management API that reduces development time with instant-on, scalable user infrastructure. Stormpath's intuitive API and expert support make it easy for developers to authenticate, manage, and secure users and roles in any application. The `stormpath-shiro` plugin allows a [Shiro](http://shiro.apache.org/)-enabled application to use [Stormpath](http://www.stormpath.com) for all authentication and access control needs.
+If you have not already seen [stormpath/stormpath-shiro-web-sample](https://github.com/stormpath/stormpath-shiro-web-sample) please take a look at that before continuing.
+
+This feature will be supported natively by Stormpath in the future.
 
 ## Documentation
 
