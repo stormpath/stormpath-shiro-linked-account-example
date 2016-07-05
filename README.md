@@ -2,6 +2,8 @@
 
 # Stormpath Shiro Account Linking Example
 
+Stormpath is a User Management API that reduces development time with instant-on, scalable user infrastructure. Stormpath's intuitive API and expert support make it easy for developers to authenticate, manage, and secure users and roles in any application. The `stormpath-shiro` plugin allows a [Shiro](http://shiro.apache.org/)-enabled application to use [Stormpath](http://www.stormpath.com) for all authentication and access control needs.
+
 This project is a fork of [stormpath/stormpath-shiro-web-sample](https://github.com/stormpath/stormpath-shiro-web-sample) which provides an example in which an source account from a read-only Stormpath directory (Active Directory mirror, a social directory, etc) is copied to a Stormpath directory, were groups can be applied. **NOTE: Passwords are NOT copied**, The original source directory is used for authentication.
 
 If you have not already seen [stormpath/stormpath-shiro-web-sample](https://github.com/stormpath/stormpath-shiro-web-sample) please take a look at that before continuing.
