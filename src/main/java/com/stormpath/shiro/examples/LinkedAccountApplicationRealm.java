@@ -32,6 +32,10 @@ public class LinkedAccountApplicationRealm extends ApplicationRealm {
      */
     private String linkedAccountAttribute = "cloudAccount";
 
+    /**
+     * Custom Data attribute used to link the editable cloud account back to the source mirrored account.
+     */
+    private String sourceAccountAttribute = "sourceAccount";
 
     private Directory cloudDir;
 
@@ -122,7 +126,7 @@ public class LinkedAccountApplicationRealm extends ApplicationRealm {
             Account account = accountIterator.next();
 
             // ensure links - will want to make this more efficient
-            account.getCustomData().put(sourceAccount.getDirectory().getProvider().getProviderId(), sourceAccount.getHref());
+            account.getCustomData().put(sourceAccountAttribute, sourceAccount.getHref());
             account.save();
             sourceAccount.getCustomData().put(linkedAccountAttribute, account.getHref());
             sourceAccount.save();
@@ -141,8 +145,7 @@ public class LinkedAccountApplicationRealm extends ApplicationRealm {
                 .setPassword("A" + UUID.randomUUID().toString());
 
         // 3. link accounts
-        String linkBackToSourceAccountAttribute = sourceAccount.getDirectory().getProvider().getProviderId();
-        account.getCustomData().put(linkBackToSourceAccountAttribute, sourceAccount.getHref());
+        account.getCustomData().put(sourceAccountAttribute, sourceAccount.getHref());
 
 
         // create the new account in the cloud directory
@@ -169,6 +172,14 @@ public class LinkedAccountApplicationRealm extends ApplicationRealm {
 
     public void setLinkedAccountAttribute(String linkedAccountAttribute) {
         this.linkedAccountAttribute = linkedAccountAttribute;
+    }
+
+    public String getSourceAccountAttribute() {
+        return sourceAccountAttribute;
+    }
+
+    public void setSourceAccountAttribute(String sourceAccountAttribute) {
+        this.sourceAccountAttribute = sourceAccountAttribute;
     }
 
     private Directory ensureCloudDirectory() {
