@@ -11,6 +11,8 @@ import com.stormpath.shiro.realm.ApplicationRealm;
 import org.apache.shiro.authc.*;
 import org.apache.shiro.subject.PrincipalCollection;
 import org.apache.shiro.util.StringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.Iterator;
 import java.util.UUID;
@@ -21,6 +23,7 @@ import java.util.UUID;
  */
 public class LinkedAccountApplicationRealm extends ApplicationRealm {
 
+    private static final Logger log = LoggerFactory.getLogger(LinkedAccountApplicationRealm.class);
 
     /**
      * The HREF of the cloud directory that will used to managed the linked accounts.
@@ -114,7 +117,18 @@ public class LinkedAccountApplicationRealm extends ApplicationRealm {
         // first check to see if we have a link
         String cloudAccountHref = (String) sourceAccount.getCustomData().get(linkedAccountAttribute);
         if (cloudAccountHref != null) { // already linked
-            return getClient().getResource(cloudAccountHref, Account.class);
+            try {
+                return getClient().getResource(cloudAccountHref, Account.class);
+            }
+            catch(ResourceException e) {
+                String msg = "Source account '{}' has link to cloud account '{}', but this account no longer exists, a new cloud account will be recreated.";
+                if(log.isTraceEnabled()) {
+                    log.trace(msg, new Object[] {sourceAccount.getUsername(), cloudAccountHref, e});
+                }
+                else {
+                    log.info(msg, sourceAccount.getUsername(), cloudAccountHref);
+                }
+            }
         }
 
         Directory cloudDirectory = ensureCloudDirectory();
@@ -141,6 +155,7 @@ public class LinkedAccountApplicationRealm extends ApplicationRealm {
                 .setGivenName(sourceAccount.getGivenName())
                 .setSurname(sourceAccount.getSurname())
                 .setEmail(sourceAccount.getEmail())
+                .setUsername(sourceAccount.getUsername())
                 // hack - meet minimum password requirements
                 .setPassword("A" + UUID.randomUUID().toString());
 
