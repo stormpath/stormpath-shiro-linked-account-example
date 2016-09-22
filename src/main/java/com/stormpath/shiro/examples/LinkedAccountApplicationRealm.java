@@ -143,7 +143,7 @@ public class LinkedAccountApplicationRealm extends ApplicationRealm {
             account.getCustomData().put(sourceAccountAttribute, sourceAccount.getHref());
             account.save();
             sourceAccount.getCustomData().put(linkedAccountAttribute, account.getHref());
-            sourceAccount.save();
+            sourceAccount.getCustomData().save();
 
             return account;
         }
